@@ -18,17 +18,17 @@ spec:
           imagePullPolicy: Always
           env:
             - name: DB_HOST
-              value: db-postgresql-blr1-27952-do-user-8364381-0.b.db.ondigitalocean.com
+              value: ""
             - name: DB_PORT
               value: "25060"
             - name: DB_USERNAME
-              value: gitmart
+              value: ""
             - name: DB_PASSWORD
-              value: AVNS_4mMbJe9NT3JXfOU
+              value: ""
             - name: DB_NAME
-              value: gitmart
+              value: ""
             - name: DB_SECRET
-              value: "secret-db-ca"
+              value: ""
             - name: APPLICATION_PORT
               value: "3000"
           resources:
