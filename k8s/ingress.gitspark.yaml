@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gitspark-routing
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.global-static-ip-name: web-static-ip
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/server-alias: www.gitmart.gitspark.com
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.org/proxy-connect-timeout: "30s"
+    nginx.org/proxy-read-timeout: "30s"
+
+spec:
+  rules:
+    - host: "como.gitspark.com"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/?(.*)"
+            backend:
+              service:
+                name: comoscanner-cluster-ip-service
+                port:
+                  number: 3000
