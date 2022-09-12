@@ -2,18 +2,14 @@ import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
+  Logger,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { getDishInformation } from 'src/api';
 
 import { Repository } from 'typeorm';
 import { ScanQRDTO } from './dto';
 import { Scan } from './scan.entity';
-
-const tempMessage = {
-  message: 'I would like to order a pizza',
-  dish: 'Pizza',
-  phoneNumber: '+8989889',
-};
 
 @Injectable()
 export class ScanService {
@@ -31,10 +27,28 @@ export class ScanService {
       throw new BadRequestException('Please provide a valid input');
     }
 
+    let dishData;
+
+    try {
+      const { response, error } = await getDishInformation(scanQRDTO.code);
+      if (response) {
+        dishData = response;
+      } else {
+        Logger.error(error);
+        throw new Error('Invalid QR Code Scanned');
+      }
+    } catch (error) {
+      throw new Error('Invalid QR Code Scanned');
+    }
+
+    if (!dishData) {
+      throw new Error('Invalid QR Code Scanned');
+    }
+
     // record this scan
     const newScan = new Scan();
     newScan.code = scanQRDTO.code;
-    newScan.message = tempMessage;
+    newScan.message = dishData;
     newScan.userName = scanQRDTO.name;
     if (scanQRDTO.deviceId) {
       newScan.deviceId = scanQRDTO.deviceId;

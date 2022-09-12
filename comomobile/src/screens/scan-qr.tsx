@@ -42,15 +42,19 @@ export default function ScanQRCode() {
 
 
     useEffect(() => {
-        getPermission();
-    }, [getPermission]);
+        if (!hasPermission) {
+            getPermission();
+        }
+    }, [getPermission, hasPermission]);
 
 
     useEffect(() => {
         if (barcodes && barcodes.length && !barCodeReceived) {
             const value = barcodes[0]?.displayValue || ""
             setBarCode(value)
-            navigation.navigate(MAIN_ROUTES.CODE_RECEIVED, { code: 1, name: params?.name })
+            setHasPermission(false)
+            setBarCode("")
+            navigation.navigate(MAIN_ROUTES.CODE_RECEIVED, { code: value, name: params?.name })
         }
 
     }, [barcodes, barCodeReceived, navigation, params?.name])

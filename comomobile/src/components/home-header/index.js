@@ -2,18 +2,14 @@ import React from "react";
 
 import { HeaderlighthomeHeader, TitleText } from "../atoms";
 import Row from "../atoms/row";
+import styles from "./styles";
 
-export default function HomeHeader() {
+export default function HomeHeader({ label }) {
   return (
     <>
       <HeaderlighthomeHeader>
-        <Row
-          customStyles={{
-            justifyContent: 'center',
-            paddingVertical: 10,
-          }}
-        >
-          <TitleText>Scan & GO</TitleText>
+        <Row customStyles={styles.wrapper}>
+          <TitleText>{label}</TitleText>
         </Row>
       </HeaderlighthomeHeader>
     </>

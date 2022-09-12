@@ -1,6 +1,6 @@
-import {Dimensions, PixelRatio} from 'react-native';
+import { Dimensions, PixelRatio } from "react-native";
 
-const {height: screenHeight, width: screenWidth} = Dimensions.get('screen');
+const { height: screenHeight, width: screenWidth } = Dimensions.get("screen");
 
 /**
  * Converts provided width percentage to independent pixel (dp).
@@ -8,10 +8,10 @@ const {height: screenHeight, width: screenWidth} = Dimensions.get('screen');
  *                               along with the percentage symbol (%).
  * @return {number}              The calculated dp depending on current device's screen width.
  */
-const widthPercentageToDP = widthPercent => {
+const widthPercentageToDP = (widthPercent) => {
   // Parse string percentage input and convert it to number.
   const elemWidth =
-    typeof widthPercent === 'number' ? widthPercent : parseFloat(widthPercent);
+    typeof widthPercent === "number" ? widthPercent : parseFloat(widthPercent);
 
   // Use PixelRatio.roundToNearestPixel method in order to round the layout
   // size (dp) to the nearest one that correspons to an integer number of pixels.
@@ -24,10 +24,10 @@ const widthPercentageToDP = widthPercent => {
  *                                along with the percentage symbol (%).
  * @return {number}               The calculated dp depending on current device's screen height.
  */
-const heightPercentageToDP = heightPercent => {
+const heightPercentageToDP = (heightPercent) => {
   // Parse string percentage input and convert it to number.
   const elemHeight =
-    typeof heightPercent === 'number'
+    typeof heightPercent === "number"
       ? heightPercent
       : parseFloat(heightPercent);
 
@@ -36,4 +36,4 @@ const heightPercentageToDP = heightPercent => {
   return PixelRatio.roundToNearestPixel((screenHeight * elemHeight) / 100);
 };
 
-export {widthPercentageToDP as wp, heightPercentageToDP as hp};
+export { widthPercentageToDP as wp, heightPercentageToDP as hp };
