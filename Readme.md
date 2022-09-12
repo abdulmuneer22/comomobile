@@ -66,7 +66,7 @@ yarn start:dev to run the application on your local
 
 
 
-curl --location --request POST 'https://como.gitspark.com/como/scan/add-scan-data' \
+curl --location --request POST 'https://como.gitspark.com/scan/add-scan-data' \
 --header 'accept: */*' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -97,7 +97,7 @@ curl --location --request POST 'https://como.gitspark.com/como/scan/add-scan-dat
 
 ```
 
-curl --location --request GET 'https://como.gitspark.com/como/scan/scans/Muneer'
+curl --location --request GET 'https://como.gitspark.com/scan/scans/Muneer'
 
 [
     {
@@ -120,7 +120,7 @@ curl --location --request GET 'https://como.gitspark.com/como/scan/scans/Muneer'
 ## Get All Scans
 
 ```
-curl --location --request GET 'https://como.gitspark.com/como/scan'
+curl --location --request GET 'https://como.gitspark.com/scan'
 
 [
     {
