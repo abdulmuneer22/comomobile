@@ -10,8 +10,8 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   entities: [__dirname + '/../**/*.entity.{ts,js}'],
   logging: true,
   synchronize: true, // to be disabled in prod,
-  ssl: {
-    rejectUnauthorized: false,
-    ca: process.env.DB_SECRET,
-  },
+  // ssl: {
+  //   rejectUnauthorized: false,
+  //   ca: process.env.DB_SECRET,
+  // },
 };

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, ToastAndroid } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useCameraDevices, Camera } from 'react-native-vision-camera'
 import Loader from '../components/loader'
@@ -28,9 +28,17 @@ export default function ScanQRCode() {
 
     const getPermission = useCallback(async () => {
         const cameraPermission = await Camera.getCameraPermissionStatus()
+        if (cameraPermission === 'denied') {
+            ToastAndroid.show('Camera Permission Is required , please provide permission from setting', ToastAndroid.LONG)
+            navigation.goBack()
+            return
+        }
         if (cameraPermission !== 'authorized') {
-            await Camera.requestCameraPermission()
-            // TODO -- handle if user denies permission
+            let permission = await Camera.requestCameraPermission()
+            if (permission !== 'authorized') {
+                getPermission()
+                return
+            }
             setHasPermission(true)
         } else {
             setHasPermission(true)
