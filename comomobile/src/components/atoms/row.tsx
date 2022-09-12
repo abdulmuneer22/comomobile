@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React from "react";
+import { View, StyleSheet } from "react-native";
 
 interface Props {
   children?: JSX.Element;
-  customStyles?: any
+  customStyles?: any;
 }
 
 export default function Row({ children, customStyles }: Props) {
@@ -12,7 +12,7 @@ export default function Row({ children, customStyles }: Props) {
 
 const styles = StyleSheet.create({
   wrapper: {
-    flexDirection: 'row',
-    alignItems: 'center'
+    flexDirection: "row",
+    alignItems: "center",
   },
 });

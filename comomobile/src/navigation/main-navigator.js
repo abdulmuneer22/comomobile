@@ -5,6 +5,7 @@ import { MAIN_ROUTES } from "./ROUTES";
 import Home from "../screens/home";
 import ScanQRCode from "../screens/scan-qr";
 import BarCodeRecieved from "../screens/barcode-received";
+import MyScans from "../screens/my-scans";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ export default function MainNavigator() {
           name={MAIN_ROUTES.CODE_RECEIVED}
           component={BarCodeRecieved}
         />
+        <Stack.Screen name={MAIN_ROUTES.MY_SCANS} component={MyScans} />
       </Stack.Navigator>
     </NavigationContainer>
   );

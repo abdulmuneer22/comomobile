@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, ToastAndroid } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useCameraDevices, Camera } from 'react-native-vision-camera'
 import Loader from '../components/loader'
@@ -28,9 +28,17 @@ export default function ScanQRCode() {
 
     const getPermission = useCallback(async () => {
         const cameraPermission = await Camera.getCameraPermissionStatus()
+        if (cameraPermission === 'denied') {
+            ToastAndroid.show('Camera Permission Is required , please provide permission from setting', ToastAndroid.LONG)
+            navigation.goBack()
+            return
+        }
         if (cameraPermission !== 'authorized') {
-            await Camera.requestCameraPermission()
-            // TODO -- handle if user denies permission
+            let permission = await Camera.requestCameraPermission()
+            if (permission !== 'authorized') {
+                getPermission()
+                return
+            }
             setHasPermission(true)
         } else {
             setHasPermission(true)
@@ -42,15 +50,19 @@ export default function ScanQRCode() {
 
 
     useEffect(() => {
-        getPermission();
-    }, [getPermission]);
+        if (!hasPermission) {
+            getPermission();
+        }
+    }, [getPermission, hasPermission]);
 
 
     useEffect(() => {
         if (barcodes && barcodes.length && !barCodeReceived) {
             const value = barcodes[0]?.displayValue || ""
             setBarCode(value)
-            navigation.navigate(MAIN_ROUTES.CODE_RECEIVED, { code: 1, name: params?.name })
+            setHasPermission(false)
+            setBarCode("")
+            navigation.navigate(MAIN_ROUTES.CODE_RECEIVED, { code: value, name: params?.name })
         }
 
     }, [barcodes, barCodeReceived, navigation, params?.name])
